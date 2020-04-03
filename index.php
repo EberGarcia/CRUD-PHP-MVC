@@ -7,5 +7,3 @@ require_once "models/formulario.model.php";
 
 $template = new TemplateController();
 $template->ctrTemplate();
-
-echo '<pre>';
