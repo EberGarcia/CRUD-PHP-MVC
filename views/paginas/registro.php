@@ -17,6 +17,9 @@
     if ($registro == "ok") {
         echo '<div class="alert alert-success">Usuario registrado.</div>';
     }
+    if ($registro == "error") {
+        echo '<div class = "alert alert-danger">Error: No se permiten caracteres extraños</div>';
+    }
     ?>
     <button type="submit" class="btn btn-primary">Registro</button>
 </form>

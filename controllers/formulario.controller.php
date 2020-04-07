@@ -6,14 +6,26 @@ class ControllerFormulario
     static public function ctrRegistro()
     {
         if (isset($_POST["nombre"])) {
-            $tabla = "clientes";
-            $datos = array(
-                "nombre" => $_POST["nombre"],
-                "email" => $_POST["email"],
-                "password" => $_POST["password"]
-            );
-            $respuesta = ModelFormulario::mdlRegistro($tabla, $datos);
-            return $respuesta;
+            if (
+                preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nombre"]) &&
+                preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $_POST["email"]) &&
+                preg_match('/^[0-9a-zA-Z]+$/', $_POST["password"])
+            ) {
+
+                $token = md5($_POST["nombre"] . "+" . $_POST["email"]);
+                $tabla = "clientes";
+                $datos = array(
+                    "token" => $token,
+                    "nombre" => $_POST["nombre"],
+                    "email" => $_POST["email"],
+                    "password" => $_POST["password"]
+                );
+                $respuesta = ModelFormulario::mdlRegistro($tabla, $datos);
+                return $respuesta;
+            } else {
+                $respuesta = "error";
+                return $respuesta;
+            }
         }
     }
     static public function ctrListar($item, $valor)
@@ -86,7 +98,7 @@ class ControllerFormulario
                     window.history.replaceState( null, null, window.location.href );
 
                 }
-                window.location = "index.php?pagina=inicio; 
+                window.location = "index.php?pagina=inicio"; 
                 
                 </script>';
             }
