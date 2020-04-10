@@ -51,7 +51,7 @@ class ControllerFormulario
                 $respuesta["email"] == $_POST["email"]  &&
                 $respuesta["password"] == $_POST["password"]
             ) {
-                $_SESSION["validarIngreso"] = "ok";
+                $_SESSION["validarIngreso"] = "ok"; // Asignar = & Comparar ==
 
                 echo '<script> window.location = "index.php?pagina=inicio"; </script>';
             } else {
